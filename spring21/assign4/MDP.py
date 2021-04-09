@@ -52,13 +52,14 @@ class MDP:
         gamma = self.discount
         V = initialV
         while True:
+            epsilon = 0
             for s in range(self.nStates):
-                V[s] = max(sum(self.T[a,s,s1] * (self.R[a,s1] + gamma*V[s1]) for s1 in range(len(self.T[a,s]))) for a in range(len(self.T)))
+                V[s] = max(sum(self.T[a,s,s1] * (self.R[a,s1] + gamma*prevV[s1]) for s1 in range(len(self.T[a,s]))) for a in range(len(self.T)))
                 epsilon = max(epsilon, abs(V[s]-prevV[s]))
             iterId += 1
             if iterId > nIterations or epsilon < tolerance:
                 break
-            prevV = V
+            prevV = V.copy()
 
         # end my code
         #=========================
