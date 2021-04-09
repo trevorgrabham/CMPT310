@@ -82,6 +82,16 @@ class MDP:
         # my code starts here
         #=========================
 
+        for s in range(self.nStates):
+            max_sum = 0
+            for a in range(len(self.T)):
+                sum = 0
+                for s1 in range(len(self.T[a,s])):
+                    sum += self.T[a,s,s1] * (self.R[a,s1] + self.discount*V[s1])
+                if sum > max_sum:
+                    max_sum = sum
+                    policy[s] = a
+
 
 
         # end my code
