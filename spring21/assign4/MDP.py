@@ -42,7 +42,7 @@ class MDP:
 
         # temporary values to ensure that the code compiles until this
         # function is coded
-        V = np.zeros(self.nStates)
+        prevV = np.zeros(self.nStates)
         iterId = 0
         epsilon = 0
 
@@ -50,14 +50,15 @@ class MDP:
         #=========================
 
         gamma = self.discount
-        prevV = initialV
+        V = initialV
         while True:
             for s in range(self.nStates):
-                V[s] = max(sum(self.T[a,s,s1] * (self.R[a,s1] + gamma*V[s1]) for s1 in self.T[a,s]) for a in self.T)
+                V[s] = max(sum(self.T[a,s,s1] * (self.R[a,s1] + gamma*V[s1]) for s1 in range(len(self.T[a,s]))) for a in range(len(self.T)))
                 epsilon = max(epsilon, abs(V[s]-prevV[s]))
-                iterId += 1
-                if iterId > nIterations or epsilon < tolerance:
-                    break
+            iterId += 1
+            if iterId > nIterations or epsilon < tolerance:
+                break
+            prevV = V
 
         # end my code
         #=========================
