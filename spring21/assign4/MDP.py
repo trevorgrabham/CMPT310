@@ -20,12 +20,12 @@ class MDP:
         assert T.shape == (self.nActions,self.nStates,self.nStates), "Invalid transition function: it has dimensionality " + repr(T.shape) + ", but it should be (nActions,nStates,nStates)"
         assert (abs(T.sum(2)-1) < 1e-5).all(), "Invalid transition function: some transition probability does not equal 1"
         self.T = T
-        assert R.ndim == 2, "Invalid reward function: it should have 2 dimensions" 
+        assert R.ndim == 2, "Invalid reward function: it should have 2 dimensions"
         assert R.shape == (self.nActions,self.nStates), "Invalid reward function: it has dimensionality " + repr(R.shape) + ", but it should be (nActions,nStates)"
         self.R = R
         assert 0 <= discount < 1, "Invalid discount factor: it should be in [0,1)"
         self.discount = discount
-        
+
     def valueIteration(self,initialV,nIterations=np.inf,tolerance=0.01):
         '''Value iteration procedure
         V <-- max_a R^a + gamma T^a V
@@ -35,17 +35,32 @@ class MDP:
         nIterations -- limit on the # of iterations: scalar (default: infinity)
         tolerance -- threshold on ||V^n-V^n+1||_inf: scalar (default: 0.01)
 
-        Outputs: 
+        Outputs:
         V -- Value function: array of |S| entries
         iterId -- # of iterations performed: scalar
         epsilon -- ||V^n-V^n+1||_inf: scalar'''
-        
+
         # temporary values to ensure that the code compiles until this
         # function is coded
         V = np.zeros(self.nStates)
         iterId = 0
         epsilon = 0
-        
+
+        # my code starts here
+        #=========================
+
+        gamma = self.discount
+        prevV = initialV
+        while True:
+            for s in range(self.nStates):
+                V[s] = max(sum(self.T[a,s,s1] * (self.R[a,s1] + gamma*V[s1]) for s1 in self.T[a,s]) for a in self.T)
+                epsilon = max(epsilon, abs(V[s]-prevV[s]))
+                iterId += 1
+                if iterId > nIterations or epsilon < tolerance:
+                    break
+
+        # end my code
+        #=========================
         return [V,iterId,epsilon]
 
     def extractPolicy(self,V):
@@ -62,7 +77,15 @@ class MDP:
         # function is coded
         policy = np.zeros(self.nStates)
 
-        return policy 
+        # my code starts here
+        #=========================
+
+
+
+        # end my code
+        #=========================
+
+        return policy
 
     def evaluatePolicy(self,policy):
         '''Evaluate a policy by solving a system of linear equations
@@ -78,8 +101,16 @@ class MDP:
         # function is coded
         V = np.zeros(self.nStates)
 
+        # my code starts here
+        #=========================
+
+
+
+        # end my code
+        #=========================
+
         return V
-        
+
     def policyIteration(self,initialPolicy,nIterations=np.inf):
         '''Policy iteration procedure: alternate between policy
         evaluation (solve V^pi = R^pi + gamma T^pi V^pi) and policy
@@ -89,7 +120,7 @@ class MDP:
         initialPolicy -- Initial policy: array of |S| entries
         nIterations -- limit on # of iterations: scalar (default: inf)
 
-        Outputs: 
+        Outputs:
         policy -- Policy: array of |S| entries
         V -- Value function: array of |S| entries
         iterId -- # of iterations peformed by modified policy iteration: scalar'''
@@ -100,6 +131,12 @@ class MDP:
         V = np.zeros(self.nStates)
         iterId = 0
 
+        # my code starts here
+        #=========================
+
+
+
+        # end my code
+        #=========================
+
         return [policy,V,iterId]
-            
-        
