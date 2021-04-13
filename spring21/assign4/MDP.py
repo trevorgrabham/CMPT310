@@ -97,7 +97,7 @@ class MDP:
         # end my code
         #=========================
 
-        return policy
+        return policy.astype(np.int32)
 
     def evaluatePolicy(self,policy):
         '''Evaluate a policy by solving a system of linear equations
@@ -112,10 +112,17 @@ class MDP:
         # temporary values to ensure that the code compiles until this
         # function is coded
         V = np.zeros(self.nStates)
-
+        prevV = np.zeros(self.nStates)
         # my code starts here
         #=========================
 
+        while True:
+            for s in range(self.nStates):
+                action = policy[s]
+                V[s] = sum(self.T[action, s, s1] * (self.R[action,s1] + self.discount*prevV[s1]) for s1 in range(len(self.T[action, s])))
+            if max(abs(V[s] - prevV[s]) for s in range(self.nStates)) < 0.01:
+                break
+            prevV = V.copy()
 
 
         # end my code
@@ -139,13 +146,25 @@ class MDP:
 
         # temporary values to ensure that the code compiles until this
         # function is coded
-        policy = np.zeros(self.nStates)
+        policy = initialPolicy
         V = np.zeros(self.nStates)
         iterId = 0
-
+        prevV = np.zeros(self.nStates)
         # my code starts here
         #=========================
 
+        while True:
+            V = self.evaluatePolicy(policy)
+            newPolicy = self.extractPolicy(V)
+            iterId += 1
+            changed = False
+            for i in range(self.nStates):
+                if newPolicy[i] != policy[i]:
+                    changed = True
+            policy = newPolicy
+            prevV = V.copy()
+            if iterId >= nIterations or changed == False:
+                break
 
 
         # end my code
