@@ -15,14 +15,14 @@ import MDP
   | 12 | 13 | 14 | 15 |
   ---------------------
 
-  Goal state: 11 
+  Goal state: 11
   Bad state: 9
   End state: 16
 
-  The end state is an absorbing state that the agent transitions 
+  The end state is an absorbing state that the agent transitions
   to after visiting the goal state.
 
-  There are 17 states in total (including the end state) 
+  There are 17 states in total (including the end state)
   and 4 actions (up, down, left, right).'''
 
 # Transition function: |A| x |S| x |S'| array
@@ -300,7 +300,7 @@ discount = 0.99
 ### DO NOT CHANGE ANY OF THE ABOVE CODE
 
 # MDP object
-mdp = MDP.MDP(T,R,discount)
+mdp = MDP(T,R,discount)
 
 '''Test each procedure'''
 [V,nIterations,epsilon] = mdp.valueIteration(initialV=np.zeros(mdp.nStates),nIterations=10000,tolerance=0.01)
