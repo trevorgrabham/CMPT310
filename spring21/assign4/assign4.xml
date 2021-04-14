@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BIF VERSION="0.3"  xmlns="http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3 http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3/XMLBIFv0_3.xsd">
+<NETWORK>
+<NAME>Untitled</NAME>
+<PROPERTY>detailed = </PROPERTY>
+<PROPERTY>short = </PROPERTY>
+
+<VARIABLE TYPE="nature">
+	<NAME>T</NAME>
+	<OUTCOME>Normal</OUTCOME>
+	<OUTCOME>High</OUTCOME>
+	<OBS>High</OBS>
+	<PROPERTY>position = (7433.0, 5266.0)</PROPERTY>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>FG</NAME>
+	<OUTCOME>T</OUTCOME>
+	<OUTCOME>F</OUTCOME>
+	<OBS>F</OBS>
+	<PROPERTY>position = (7709.0, 5261.0)</PROPERTY>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>G</NAME>
+	<OUTCOME>Normal</OUTCOME>
+	<OUTCOME>High</OUTCOME>
+	<PROPERTY>position = (7562.0, 5383.0)</PROPERTY>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>A</NAME>
+	<OUTCOME>T</OUTCOME>
+	<OUTCOME>F</OUTCOME>
+	<OBS>T</OBS>
+	<PROPERTY>position = (7477.0, 5524.0)</PROPERTY>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>FA</NAME>
+	<OUTCOME>T</OUTCOME>
+	<OUTCOME>F</OUTCOME>
+	<OBS>F</OBS>
+	<PROPERTY>position = (7327.0, 5426.0)</PROPERTY>
+</VARIABLE>
+
+<DEFINITION>
+	<FOR>T</FOR>
+	<TABLE>0.7 0.3</TABLE>
+</DEFINITION>
+
+<DEFINITION>
+	<FOR>FG</FOR>
+	<TABLE>0.1 0.9</TABLE>
+</DEFINITION>
+
+<DEFINITION>
+	<FOR>G</FOR>
+	<GIVEN>T</GIVEN>
+	<GIVEN>FG</GIVEN>
+	<TABLE>0.1 0.9 0.9 0.1 0.9 0.1 0.1 0.9</TABLE>
+</DEFINITION>
+
+<DEFINITION>
+	<FOR>A</FOR>
+	<GIVEN>G</GIVEN>
+	<GIVEN>FA</GIVEN>
+	<TABLE>0.0 1.0 0.0 1.0 0.0 1.0 1.0 0.0</TABLE>
+</DEFINITION>
+
+<DEFINITION>
+	<FOR>FA</FOR>
+	<TABLE>0.5 0.5</TABLE>
+</DEFINITION>
+</NETWORK>
+</BIF>
